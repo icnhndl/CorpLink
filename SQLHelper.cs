@@ -48,7 +48,11 @@ namespace CorpLink
 
         public object GetContacts(string login)
         {
-            string query = $"SELECT * FROM ;";
+            string query = 
+                $"SELECT * FROM contacts c" +
+                $"WHERE owner_id = {login}" +
+                $"JOIN user_details ud " +
+                $"ON c.user_id = ud.user_id;";
             using (MySqlCommand cmd = new MySqlCommand(query, connection))
             {
                 return (int)cmd.ExecuteScalar() == 1;
